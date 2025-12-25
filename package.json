@@ -1,6 +1,6 @@
 {
   "name": "react-native-expo-debug-menu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A debug menu component for React Native Expo apps",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
