@@ -25,7 +25,7 @@ yarn add react-native-expo-debug-menu
 
 アプリのルートコンポーネント（または任意のコンテナ）を `DebugMenuProvider` でラップし、実行したいアクションのリストを `actions` プロパティに渡します。
 
-`debugMode` プロパティを `true` に設定すると、画面右下にデバッグボタン（🐞）が表示されます。
+`showFloatingButton` プロパティを `true` に設定すると、画面右下にデバッグボタン（🐞）が表示されます。
 
 ```tsx
 import { DebugMenuProvider, DebugAction } from 'react-native-expo-debug-menu';
@@ -50,8 +50,8 @@ export default function RootLayout() {
   ];
 
   return (
-    // debugMode={true} でフローティングボタンを表示
-    <DebugMenuProvider actions={debugActions} debugMode>
+    // showFloatingButton={true} でフローティングボタンを表示
+    <DebugMenuProvider actions={debugActions} showFloatingButton>
       <Stack />
     </DebugMenuProvider>
   );
@@ -67,7 +67,7 @@ export default function RootLayout() {
 | `actions`        | `DebugAction[]`   | **Required** | デバッグメニューに表示するアクションのリスト                                                |
 | `children`       | `React.ReactNode` | **Required** | ラップする子コンポーネント                                                                  |
 | `enabled`        | `boolean`         | `__DEV__`    | デバッグメニュー機能を有効にするかどうか。`false`の場合、ボタンもメニューも表示されません。 |
-| `debugMode`      | `boolean`         | `false`      | `true` の場合、画面右下にフローティングボタン（🐞）を表示します。                            |
+| `showFloatingButton` | `boolean`         | `false`      | `true` の場合、画面右下にフローティングボタン（🐞）を表示します。                            |
 | `defaultVisible` | `boolean`         | `false`      | 初期状態でメニューを表示するかどうか。                                                      |
 
 ### DebugAction

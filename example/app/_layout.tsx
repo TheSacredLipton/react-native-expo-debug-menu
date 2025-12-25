@@ -1,6 +1,6 @@
-import { Stack } from "expo-router";
-import { DebugMenuProvider } from "../src";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Stack } from "expo-router";
+import { DebugMenuProvider } from "react-native-expo-debug-menu";
 
 export default function RootLayout() {
   const debugActions = [
@@ -28,7 +28,12 @@ export default function RootLayout() {
   ];
 
   return (
-    <DebugMenuProvider actions={debugActions} defaultVisible debugMode>
+    <DebugMenuProvider
+      actions={debugActions}
+      defaultVisible
+      showFloatingButton
+      floatingButtonPosition={{ bottom: 100, right: 20 }}
+    >
       <Stack />
     </DebugMenuProvider>
   )

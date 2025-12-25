@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { ActionSheetIOS, Modal, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,20 +8,27 @@ export type DebugAction = {
   style?: 'default' | 'cancel' | 'destructive';
 };
 
-interface DebugMenuProps {
+export interface DebugMenuProps {
   actions: DebugAction[];
   children: React.ReactNode;
   enabled?: boolean;
-  debugMode?: boolean;
+  showFloatingButton?: boolean;
   defaultVisible?: boolean;
+  floatingButtonPosition?: {
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+  };
 }
 
 export const DebugMenuProvider: React.FC<DebugMenuProps> = ({
   actions,
   children,
   enabled = __DEV__,
-  debugMode = false,
-  defaultVisible = false
+  showFloatingButton = false,
+  defaultVisible = false,
+  floatingButtonPosition
 }) => {
   const [visible, setVisible] = useState(defaultVisible);
   const { height: windowHeight } = useWindowDimensions();
@@ -83,9 +90,9 @@ export const DebugMenuProvider: React.FC<DebugMenuProps> = ({
   return (
     <>
       {children}
-      {enabled && debugMode && (
+      {enabled && showFloatingButton && (
         <TouchableOpacity
-          style={styles.debugButton}
+          style={[styles.debugButton, floatingButtonPosition ?? { bottom: 50, right: 20 }]}
           onPress={() => Platform.OS === 'ios' && !defaultVisible ? showActionSheet() : setVisible(true)}
           activeOpacity={0.7}
         >
@@ -217,8 +224,6 @@ const styles = StyleSheet.create({
   },
   debugButton: {
     position: 'absolute',
-    bottom: 50,
-    right: 20,
     width: 56,
     height: 56,
     borderRadius: 28,
