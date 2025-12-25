@@ -78,6 +78,28 @@ export default function RootLayout() {
 | `onPress` | `() => void \| Promise<void>`            | アクションが選択されたときに実行される関数                                     |
 | `style`   | `'default' \| 'cancel' \| 'destructive'` | (Optional) アクションのスタイル。`destructive`を指定すると赤字で表示されます。 |
 
+## 開発・公開手順
+
+### ビルド
+
+```bash
+npm run build
+```
+
+### npmへの公開
+
+1. バージョンを更新します。
+
+```bash
+npm version patch # または minor, major
+```
+
+2. npmに公開します（ビルドは自動的に実行されます）。
+
+```bash
+npm publish
+```
+
 ## License
 
 MIT
