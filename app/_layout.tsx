@@ -21,10 +21,10 @@ export default function RootLayout() {
         }
       }
     },
-    { label: "test", onPress: () => console.log("test") }
-    , { label: "test", onPress: () => console.log("test") }
-    , { label: "test", onPress: () => console.log("test") }
-    , { label: "test", onPress: () => console.log("test") }
+    {
+      label: 'ログ出力テスト',
+      onPress: () => console.log('Debug action triggered')
+    }
   ];
 
   return (

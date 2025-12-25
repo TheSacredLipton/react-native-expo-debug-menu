@@ -43,14 +43,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/react-native-expo-debug-menu.git"
+    "url": "https://github.com/TheSacredLipton/react-native-expo-debug-menu.git"
   },
-  "author": "Your Name <your.email@example.com> (https://github.com/your-username)",
+  "author": "TheSacredLipton (https://github.com/TheSacredLipton)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/your-username/react-native-expo-debug-menu/issues"
+    "url": "https://github.com/TheSacredLipton/react-native-expo-debug-menu/issues"
   },
-  "homepage": "https://github.com/your-username/react-native-expo-debug-menu#readme",
+  "homepage": "https://github.com/TheSacredLipton/react-native-expo-debug-menu#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
