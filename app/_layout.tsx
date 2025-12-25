@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { DebugMenuProvider } from "../DebugMenu";
+import { DebugMenuProvider } from "../src";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RootLayout() {

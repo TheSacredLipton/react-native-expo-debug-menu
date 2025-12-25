@@ -1,50 +1,83 @@
-# Welcome to your Expo app 👋
+# react-native-expo-debug-menu
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+React Native (Expo) アプリ向けのデバッグメニューコンポーネントです。
+開発版ビルド (`__DEV__`) や特定の条件下でのみ表示されるデバッグボタンを提供し、カスタムアクションを実行するためのメニューを表示します。
 
-## Get started
+iOSではネイティブのActionSheetを使用し、AndroidやWebではカスタマイズされたモーダルを表示します。
 
-1. Install dependencies
+## 特徴
 
-   ```bash
-   npm install
-   ```
+- 🐞 フローティングボタンでデバッグメニューに簡単にアクセス
+- 📱 iOS / Android / Web 対応
+- 🎨 iOSではネイティブUI (ActionSheet) を使用
+- 🛠 開発モード (`__DEV__`) の自動検知
+- ⚡️ 非同期アクションのサポート
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## インストール
 
 ```bash
-npm run reset-project
+npm install react-native-expo-debug-menu
+# または
+yarn add react-native-expo-debug-menu
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 使い方
 
-## Learn more
+アプリのルートコンポーネント（または任意のコンテナ）を `DebugMenuProvider` でラップし、実行したいアクションのリストを `actions` プロパティに渡します。
 
-To learn more about developing your project with Expo, look at the following resources:
+`debugMode` プロパティを `true` に設定すると、画面右下にデバッグボタン（🐞）が表示されます。
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```tsx
+import { DebugMenuProvider, DebugAction } from 'react-native-expo-debug-menu';
+import { Stack } from 'expo-router';
+import { Alert } from 'react-native';
 
-## Join the community
+export default function RootLayout() {
+  const debugActions: DebugAction[] = [
+    {
+      label: 'APIログを表示',
+      onPress: () => console.log('API Logs...'),
+    },
+    {
+      label: 'キャッシュをクリア',
+      onPress: async () => {
+        // 非同期処理もサポートされています
+        await clearCache();
+        Alert.alert('完了', 'キャッシュをクリアしました');
+      },
+      style: 'destructive', // 赤字で表示されます（iOS/Android共通）
+    },
+  ];
 
-Join our community of developers creating universal apps.
+  return (
+    // debugMode={true} でフローティングボタンを表示
+    <DebugMenuProvider actions={debugActions} debugMode>
+      <Stack />
+    </DebugMenuProvider>
+  );
+}
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Props
+
+### DebugMenuProvider
+
+| Prop             | Type              | Default      | Description                                                                                 |
+| ---------------- | ----------------- | ------------ | ------------------------------------------------------------------------------------------- |
+| `actions`        | `DebugAction[]`   | **Required** | デバッグメニューに表示するアクションのリスト                                                |
+| `children`       | `React.ReactNode` | **Required** | ラップする子コンポーネント                                                                  |
+| `enabled`        | `boolean`         | `__DEV__`    | デバッグメニュー機能を有効にするかどうか。`false`の場合、ボタンもメニューも表示されません。 |
+| `debugMode`      | `boolean`         | `false`      | `true` の場合、画面右下にフローティングボタン（🐞）を表示します。                            |
+| `defaultVisible` | `boolean`         | `false`      | 初期状態でメニューを表示するかどうか。                                                      |
+
+### DebugAction
+
+| Property  | Type                                     | Description                                                                    |
+| --------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
+| `label`   | `string`                                 | メニューに表示されるアクション名                                               |
+| `onPress` | `() => void \| Promise<void>`            | アクションが選択されたときに実行される関数                                     |
+| `style`   | `'default' \| 'cancel' \| 'destructive'` | (Optional) アクションのスタイル。`destructive`を指定すると赤字で表示されます。 |
+
+## License
+
+MIT
