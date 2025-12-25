@@ -28,33 +28,35 @@ yarn add react-native-expo-debug-menu
 
 ```tsx
 import { DebugMenuProvider, DebugAction } from 'react-native-expo-debug-menu';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Stack } from 'expo-router';
-import { Alert } from 'react-native';
 
 export default function RootLayout() {
-  const debugActions: DebugAction[] = [
+  const actions: DebugAction[] = [
     {
-      label: 'APIログを表示',
-      onPress: () => console.log('API Logs...'),
+      label: 'リロード',
+      onPress: () => {
+        if (typeof location !== 'undefined' && location.reload) {
+          location.reload();
+        }
+      }
     },
     {
-      label: 'キャッシュをクリア',
+      label: 'AsyncStorageをクリア',
       onPress: async () => {
-        // 非同期処理対応
-        await clearCache();
-        Alert.alert('完了', 'キャッシュをクリアしました');
-      },
-      style: 'destructive', // 赤字で表示（iOS/Android共通）
+        await AsyncStorage.clear();
+        if (typeof location !== 'undefined' && location.reload) {
+          location.reload();
+        }
+      }
     },
   ];
 
   return (
-    // showFloatingButton={true} でフローティングボタンを表示
-    // floatingButtonPosition で位置をカスタマイズ可能（デフォルトは右下）
     <DebugMenuProvider
-      actions={debugActions}
+      actions={actions}
       showFloatingButton
-      floatingButtonPosition={{ bottom: 80, right: 20 }}
+      floatingButtonPosition={{ bottom: 20, right: 20 }}
     >
       <Stack />
     </DebugMenuProvider>
