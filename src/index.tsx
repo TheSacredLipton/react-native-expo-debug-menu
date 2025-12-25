@@ -96,7 +96,7 @@ export const DebugMenuProvider: React.FC<DebugMenuProps> = ({
           onPress={() => Platform.OS === 'ios' && !defaultVisible ? showActionSheet() : setVisible(true)}
           activeOpacity={0.7}
         >
-          <Text style={styles.debugButtonText}>🐞</Text>
+          <Text style={styles.debugButtonText}>🛠️</Text>
         </TouchableOpacity>
       )}
       {(Platform.OS !== 'ios' || defaultVisible) && (

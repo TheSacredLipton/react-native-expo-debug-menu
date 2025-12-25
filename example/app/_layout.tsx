@@ -30,9 +30,8 @@ export default function RootLayout() {
   return (
     <DebugMenuProvider
       actions={debugActions}
-      defaultVisible
       showFloatingButton
-      floatingButtonPosition={{ bottom: 100, right: 20 }}
+      floatingButtonPosition={{ bottom: 20, right: 20 }}
     >
       <Stack />
     </DebugMenuProvider>
