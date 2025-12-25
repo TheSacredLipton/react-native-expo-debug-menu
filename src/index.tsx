@@ -33,24 +33,6 @@ export const DebugMenuProvider: React.FC<DebugMenuProps> = ({
   const [visible, setVisible] = useState(defaultVisible);
   const { height: windowHeight } = useWindowDimensions();
   const containerMaxHeight = Math.round(windowHeight * 0.85);
-  const actionRowHeight = 56;
-  const cancelRowHeight = 56;
-  const titleBlockHeight = 44;
-  const containerVerticalPadding = 40;
-  const cancelMarginTop = 12;
-  const separatorHeight = 1;
-
-  const separatorsCount = Math.max(0, actions.length - 1);
-  const desiredContentHeight =
-    containerVerticalPadding +
-    titleBlockHeight +
-    actions.length * actionRowHeight +
-    separatorsCount * separatorHeight +
-    cancelMarginTop +
-    cancelRowHeight;
-
-  const containerHeight = Math.min(desiredContentHeight, containerMaxHeight);
-  const scrollEnabled = desiredContentHeight > containerHeight;
 
   const showActionSheet = () => {
     const options = [...actions.map(a => a.label), 'キャンセル'];
@@ -112,12 +94,11 @@ export const DebugMenuProvider: React.FC<DebugMenuProps> = ({
             onPress={() => setVisible(false)}
           >
             <SafeAreaView style={styles.safeArea}>
-              <View style={[styles.container, { height: containerHeight }]}>
+              <View style={[styles.container, { maxHeight: containerMaxHeight }]}>
                 <Text style={styles.title}>Debug Menu</Text>
                 <ScrollView
                   style={styles.scrollView}
                   bounces={false}
-                  scrollEnabled={scrollEnabled}
                   showsVerticalScrollIndicator={false}
                 >
                   {actions.map((item, index) => (
@@ -187,7 +168,8 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     width: '100%',
-    flex: 1,
+    flexGrow: 0,
+    flexShrink: 1,
   },
   actionItemContainer: {
     width: '100%',
