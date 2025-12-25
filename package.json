@@ -43,7 +43,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/TheSacredLipton/react-native-expo-debug-menu.git"
+    "url": "git+https://github.com/TheSacredLipton/react-native-expo-debug-menu.git"
   },
   "author": "TheSacredLipton (https://github.com/TheSacredLipton)",
   "license": "MIT",
